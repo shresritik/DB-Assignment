@@ -72,38 +72,74 @@ INSERT INTO Enrollments (enrollment_id, student_id, course_id, enrollment_date) 
 
 --Questions
 --1.Find all students enrolled in the Math course.
-SELECT student_name
-FROM Students, Enrollments, Courses
-WHERE Students.student_id = Enrollments.student_id
-  AND Enrollments.course_id = Courses.course_id
-  AND Courses.course_name = 'Math';
-
+select  student_name  from Students
+where  student_id in (
+    select  Enrollments.student_id
+    from  Enrollments where Enrollments.course_id =(select Courses.course_id from courses 
+    where  Courses.course_name = 'Math')
+);
 
 --2. List all courses taken by students named Bob.
-SELECT c.course_name  From  Courses c,Enrollments e,students s WHERE s.student_id =e.student_id  AND c.course_id =e.course_id  AND s.student_name ='Bob'
---3.Find the names of students who are enrolled in more than one course.
-SELECT student_name From students s,courses c,enrollments e WHERE s.student_id =e.student_id AND c.course_id =e.course_id  GROUP BY s.student_id having count(c.course_id)>1
+select c.course_name from courses c 
+where c.course_id in 
+(select  e.course_id from enrollments e 
+where e.student_id=
+(select s.student_id from students s 
+where s.student_name='Bob'));
 
+--3.Find the names of students who are enrolled in more than one course.
+select student_name from students
+where student_id IN (
+select student_id FROM enrollments
+group by student_id having COUNT(course_id) > 1
+    );
 --4.List all students who are in Grade A
-SELECT student_name From students s,grades g WHERE s.student_grade_id=g.grade_id  AND g.grade_name ='A'
+select student_name from students
+where student_grade_id = 1;
 --5.Find the number of students enrolled in each course.
-SELECT c.course_name, COUNT(e.student_id) AS student_count FROM Enrollments e, Courses c WHERE e.course_id = c.course_id GROUP BY c.course_name;
+select course_name,
+(select COUNT(*) from Enrollments E 
+where E.course_id = C.course_id
+) AS number_of_students
+from Courses C;
 --6.Retrieve the course with the highest number of enrollments.
-SELECT max(e.course_id),count(e.course_id),c.course_name  From courses c ,enrollments e WHERE e.course_id =c.course_id GROUP BY c.course_id order by count(e.course_id)desc limit 1
+select course_name, (
+select COUNT(*) from Enrollments E
+WHERE E.course_id = C.course_id
+) AS number_of_students
+from Courses C order by number_of_students desc limit 1;
 --7.List students who are enrolled in all available courses.
-SELECT student_name FROM Students WHERE student_id IN (SELECT student_id  FROM Enrollments  GROUP BY student_id  HAVING COUNT(DISTINCT course_id) = (SELECT COUNT(*) FROM Courses)
+select student_name FROM Students where student_id IN 
+(
+select student_id  from Enrollments  GROUP BY student_id  
+having COUNT(DISTINCT course_id) = (select COUNT(*) FROM Courses)
 );
 
 --8.Find students who are not enrolled in any courses.
-SELECT student_name FROM Students WHERE student_id NOT IN (
-  SELECT student_id
-  FROM Enrollments
+select student_name FROM Students WHERE student_id
+NOT IN (
+select  student_id
+from Enrollments
 );
 
 --9. Retrieve the average age of students enrolled in the Science course.
-SELECT avg(student_age) From students s ,enrollments e ,courses c WHERE c.course_id =e.course_id AND s.student_id =e.student_id AND c.course_name ='Science'
+select AVG(student_age) as Avg_Age from Students
+where student_id IN (
+select student_id from Enrollments
+where course_id = (
+select course_id from courses
+ where course_name = 'Science'
+)
+    );
 --10. Find the grade of students enrolled in the History course.
-SELECT s.student_name, g.grade_name,course_name  From grades g ,students s,enrollments e,courses c WHERE s.student_grade_id=g.grade_id AND s.student_id =e.student_id AND  e.course_id =c.course_id AND c.course_name ='History'
-
-
-
+select student_name, (select grade_name from grades G
+where S.student_grade_id = G.grade_id
+) as Grade
+from Students S
+where student_id in (
+select student_id from Enrollments E
+where E.course_id = (
+ select course_id from courses
+where course_name = 'History'
+)
+)
