@@ -61,12 +61,12 @@ DELETE FROM Orders
 WHERE order_id = 3;
 --2. Calculate the Total Quantity Ordered for Each Product Category
 SELECT p.category, SUM(o.quantity) AS total_quantity
-FROM Orders o
-JOIN Products p ON o.product_id = p.product_id
+FROM Orders o,
+Products p where o.product_id = p.product_id
 GROUP BY p.category;
 --3. Find Categories Where the Total Number of Products Ordered is Greater Than 5
 SELECT p.category, SUM(o.quantity) AS total_quantity
-FROM Orders o
-JOIN Products p ON o.product_id = p.product_id
+FROM Orders o,
+Products p where o.product_id = p.product_id
 GROUP BY p.category
 HAVING SUM(o.quantity) > 5;
