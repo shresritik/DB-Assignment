@@ -20,7 +20,7 @@ docker compose up -d
 
 For pgadmin go to
 
-<a href="http:localhost:6060">http:localhost:6060</a>
+<a href="http:localhost:5050">http:localhost:5050</a>
 
 Login pgadmin using the `PGADMIN_MAIL`, `PGADMIN_PW`
 

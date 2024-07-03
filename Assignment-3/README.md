@@ -28,7 +28,7 @@ For pgadmin go to
 Login pgadmin using the `PGADMIN_MAIL`, `PGADMIN_PW`
 
 Register Server:
-In Connection tab, write host name from IP address/Gateway from
+In Connection tab, write host name with IP address/Gateway from
 
 ```bash
 docker inspect <containerID>
