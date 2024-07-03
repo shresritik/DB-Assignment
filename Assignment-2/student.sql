@@ -72,11 +72,11 @@ INSERT INTO Enrollments (enrollment_id, student_id, course_id, enrollment_date) 
 
 --Questions
 --1.Find all students enrolled in the Math course.
-select  student_name  from Students
-where  student_id in (
-    select  Enrollments.student_id
-    from  Enrollments where Enrollments.course_id =(select Courses.course_id from courses 
-    where  Courses.course_name = 'Math')
+select student_name  from Students
+where student_id in (
+    select Enrollments.student_id
+    from Enrollments where Enrollments.course_id =(select Courses.course_id from courses 
+    where Courses.course_name = 'Math')
 );
 
 --2. List all courses taken by students named Bob.
@@ -92,7 +92,7 @@ select student_name from students
 where student_id IN (
 select student_id FROM enrollments
 group by student_id having COUNT(course_id) > 1
-    );
+);
 --4.List all students who are in Grade A
 select student_name from students
 where student_grade_id = 1;
@@ -116,10 +116,10 @@ having COUNT(DISTINCT course_id) = (select COUNT(*) FROM Courses)
 );
 
 --8.Find students who are not enrolled in any courses.
-select student_name FROM Students WHERE student_id
+SELECT student_name FROM Students WHERE student_id
 NOT IN (
-select  student_id
-from Enrollments
+SELECT  student_id
+FROM Enrollments
 );
 
 --9. Retrieve the average age of students enrolled in the Science course.
@@ -130,7 +130,7 @@ where course_id = (
 select course_id from courses
  where course_name = 'Science'
 )
-    );
+);
 --10. Find the grade of students enrolled in the History course.
 select student_name, (select grade_name from grades G
 where S.student_grade_id = G.grade_id
@@ -142,4 +142,4 @@ where E.course_id = (
  select course_id from courses
 where course_name = 'History'
 )
-)
+);

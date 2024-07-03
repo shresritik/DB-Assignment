@@ -1,6 +1,6 @@
 services:
   postgres:
-    container_name: postgres_new
+    container_name: postgres_2
     image: postgres:16
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
@@ -13,7 +13,7 @@ services:
     restart: always
 
   pgadmin:
-    container_name: pgadmin_new
+    container_name: pgadmin_2
     image: dpage/pgadmin4:8.9
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
@@ -22,25 +22,11 @@ services:
       - "5050:80"
     restart: always
     volumes:
-      - .:/var/lib/pgadmin/storage/admin_bob.com/
-      # - pgadmin_data:/var/lib/pgadmin/storage/x_y.z
-      - pgadmin_data:/var/lib/pgadmin
-
-    depends_on:
-      - postgres
-
-  dbeaver:
-    container_name: cloudbeaver_new
-    image: dbeaver/cloudbeaver:24.1.1
-    restart: always
-    volumes:
-      - cloudbeaver_data:/opt/cloudbeaver/workspace
-    ports:
-      - 6060:8978
+      - .:/var/lib/pgadmin/storage/admin_bob.com
+      - pgadmin_data:/var/lib/pgadmin/storage
     depends_on:
       - postgres
 
 volumes:
   postgresql_data:
   pgadmin_data:
-  cloudbeaver_data:
