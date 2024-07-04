@@ -1,5 +1,6 @@
 
 create table Profession (
+id serial primary key,
 firstName varchar(50),
 lastName varchar(50),
 sex varchar(50),
@@ -15,6 +16,7 @@ ratings int,
 pastExp int
 
 );
+
 copy Profession(firstName,lastName,sex,doj,currentDate,designation,age,salary,unit,leavesUsed,leavesRemaining,ratings,pastExp) 
 from 'D:\Web\Leapfrog\Fellowship\Database\Assignment-4\Salary Prediction of Data Professions.csv' DELIMITER ',' CSV header;
 select * from Profession ;
@@ -59,11 +61,11 @@ language plpgsql
 as $$
 begin
 update profession 
-set salary=salary+amount where firstname=first and lastname=last;
+set salary=salary+amount where firstname=first and lastname=last ;
 commit; 
 	end;$$;
 call updateSalary('OLIVE','ANCY',10000);
-select * from profession where firstname='OLIVE'
+select * from profession order by id
 --
 --Question 7: Create a procedure to calculate the total number of leaves used across all departments.
 --	
@@ -82,5 +84,4 @@ begin
 
 call calcLeavesUsed();
 select * from leavesTable;
-
 
