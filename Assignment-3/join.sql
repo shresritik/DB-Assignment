@@ -1,3 +1,5 @@
+CREATE SCHEMA School;
+set search_path to School;
 -- Create Students table
 CREATE TABLE Students (
     student_id INT PRIMARY KEY,

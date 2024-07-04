@@ -1,3 +1,5 @@
+CREATE SCHEMA Student;
+set search_path to Student;
 -- Grades table
 CREATE TABLE Grades (
     grade_id INT PRIMARY KEY,

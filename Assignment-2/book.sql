@@ -3,6 +3,8 @@
 --Publisher (with attributes like publisher_id, publisher_name, country)
 --Customer (with attributes like customer_id, customer_name, email, address)
 --Order (with attributes like order_id, order_date, customer_id, total_amount)
+CREATE SCHEMA Book;
+set search_path to Book;
 create table Publisher (
 publisher_id SERIAL primary key , 
 

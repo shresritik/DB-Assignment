@@ -1,4 +1,5 @@
-
+CREATE SCHEMA Profession;
+set search_path to Profession;
 create table Profession (
 id serial primary key,
 firstName varchar(50),
@@ -18,7 +19,7 @@ pastExp int
 );
 
 copy Profession(firstName,lastName,sex,doj,currentDate,designation,age,salary,unit,leavesUsed,leavesRemaining,ratings,pastExp) 
-from 'D:\Web\Leapfrog\Fellowship\Database\Assignment-4\Salary Prediction of Data Professions.csv' DELIMITER ',' CSV header;
+from '/Salary Prediction of Data Professions.csv' DELIMITER ',' CSV header;
 select * from Profession ;
 
 --Question 1: Calculate the average salary by department for all Analysts.

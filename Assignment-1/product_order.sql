@@ -1,7 +1,8 @@
 --Create two tables 
 --Products: columns (product_id,product_name,category and price)
 --Orders : columns(   order_id, customer_name, product_id, quantity, order_date)
-
+CREATE SCHEMA Shop;
+set search_path to Shop;
 CREATE TABLE Products (
     product_id INT PRIMARY KEY,
     product_name VARCHAR(50),
@@ -52,9 +53,6 @@ UPDATE Orders
 SET quantity = 4
 WHERE order_id = 2;
 
--- Delete a product
-DELETE FROM Products
-WHERE product_id = 4;
 
 -- Delete an order
 DELETE FROM Orders
