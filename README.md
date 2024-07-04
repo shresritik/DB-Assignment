@@ -1,3 +1,5 @@
+_Note: All the assignment folders contains sql files and pdf with the query and its output images_
+
 ## Using postgresql and pgadmin with Docker
 
 ### Create .env file

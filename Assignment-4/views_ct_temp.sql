@@ -24,7 +24,8 @@ select * from Profession ;
 --Question 1: Calculate the average salary by department for all Analysts.
 with 
 avg_sal as (
-select p.designation,avg(p.salary)  from Profession p group by p.designation having p.designation='Analyst' 
+select p.unit ,round(avg(p.salary))  from Profession p 
+ where  p.designation='Analyst' group by unit
 )
 select * from avg_sal;
 --Question 2: List all employees who have used more than 10 leaves.
@@ -44,8 +45,6 @@ select * from seniorAnalyst
 --Question 4: Create a materialized view to store the count of employees by department.
 create materialized view  countEmployees as
 select unit,count(unit) from profession group by unit;
-
-
 select * from countEmployees;
 
 --
@@ -63,9 +62,10 @@ begin
 update profession 
 set salary=salary+amount where firstname=first and lastname=last ;
 commit; 
-	end;$$;
+	end;
+$$;
 call updateSalary('OLIVE','ANCY',10000);
-select * from profession order by id
+select firstname,lastname,salary from profession order by id
 --
 --Question 7: Create a procedure to calculate the total number of leaves used across all departments.
 --	
