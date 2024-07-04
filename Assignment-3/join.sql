@@ -1,3 +1,4 @@
+CREATE DATABASE SchoolDb;
 CREATE SCHEMA School;
 set search_path to School;
 -- Create Students table

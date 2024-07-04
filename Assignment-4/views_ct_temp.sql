@@ -1,3 +1,4 @@
+CREATE DATABASE ProfessionDb;
 CREATE SCHEMA Profession;
 set search_path to Profession;
 create table Profession (

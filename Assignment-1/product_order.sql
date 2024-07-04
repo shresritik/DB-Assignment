@@ -1,6 +1,7 @@
 --Create two tables 
 --Products: columns (product_id,product_name,category and price)
 --Orders : columns(   order_id, customer_name, product_id, quantity, order_date)
+CREATE DATABASE ShopDb;
 CREATE SCHEMA Shop;
 set search_path to Shop;
 CREATE TABLE Products (

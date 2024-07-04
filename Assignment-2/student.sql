@@ -1,3 +1,4 @@
+CREATE DATABASE StudentDb;
 CREATE SCHEMA Student;
 set search_path to Student;
 -- Grades table
