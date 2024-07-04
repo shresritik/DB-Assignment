@@ -1,6 +1,2 @@
 Instructions for the setup of the assignments using docker is in the link below:
 <a href="https://github.com/shresritik/DB-Assignment">https://github.com/shresritik/DB-Assignment</a>
-
-_Note:
-In `views_ct_temp.sql`
-copy the absolute path of the `Salary Prediction of Data Professions.csv` to import the csv file in `Professor` table_
